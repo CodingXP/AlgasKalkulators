@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>860</width>
+    <height>720</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">
+background-color: rgb(54, 54, 54);</string>
+  </property>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>360</x>
+     <y>60</y>
+     <width>141</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(255, 246, 230);
+font: 28pt &quot;Rockwell&quot;;</string>
+   </property>
+   <property name="text">
+    <string>Register</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>250</x>
+     <y>140</y>
+     <width>41</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 12pt &quot;MS Shell Dlg 2&quot;;
+color: rgb(255, 255, 255);</string>
+   </property>
+   <property name="text">
+    <string>Name</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_3">
+   <property name="geometry">
+    <rect>
+     <x>540</x>
+     <y>140</y>
+     <width>71</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 12pt &quot;MS Shell Dlg 2&quot;;
+color: rgb(255, 255, 255);</string>
+   </property>
+   <property name="text">
+    <string>Surname</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_4">
+   <property name="geometry">
+    <rect>
+     <x>410</x>
+     <y>220</y>
+     <width>51</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 12pt &quot;MS Shell Dlg 2&quot;;
+color: rgb(255, 255, 255);</string>
+   </property>
+   <property name="text">
+    <string>E-mail</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_5">
+   <property name="geometry">
+    <rect>
+     <x>400</x>
+     <y>290</y>
+     <width>71</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 12pt &quot;MS Shell Dlg 2&quot;;
+color: rgb(255, 255, 255);</string>
+   </property>
+   <property name="text">
+    <string>Password</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_6">
+   <property name="geometry">
+    <rect>
+     <x>370</x>
+     <y>360</y>
+     <width>131</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 12pt &quot;MS Shell Dlg 2&quot;;
+color: rgb(255, 255, 255);</string>
+   </property>
+   <property name="text">
+    <string>Confirm Password</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="name">
+   <property name="geometry">
+    <rect>
+     <x>220</x>
+     <y>170</y>
+     <width>113</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(255, 255, 255);</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="surname">
+   <property name="geometry">
+    <rect>
+     <x>520</x>
+     <y>170</y>
+     <width>113</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(255, 255, 255);</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="email">
+   <property name="geometry">
+    <rect>
+     <x>250</x>
+     <y>250</y>
+     <width>361</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(255, 255, 255);</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="password">
+   <property name="geometry">
+    <rect>
+     <x>340</x>
+     <y>320</y>
+     <width>181</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 8pt &quot;Rockwell&quot;;
+color: rgb(255, 255, 255);</string>
+   </property>
+   <property name="echoMode">
+    <enum>QLineEdit::Password</enum>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="cPassword">
+   <property name="geometry">
+    <rect>
+     <x>340</x>
+     <y>390</y>
+     <width>181</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(255, 255, 255);</string>
+   </property>
+   <property name="echoMode">
+    <enum>QLineEdit::Password</enum>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_7">
+   <property name="geometry">
+    <rect>
+     <x>340</x>
+     <y>690</y>
+     <width>201</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 10pt &quot;MS Shell Dlg 2&quot;;
+color: rgb(255, 255, 255);</string>
+   </property>
+   <property name="text">
+    <string>Made by DP3-2 PIKC RVT || 2023</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="regButton">
+   <property name="geometry">
+    <rect>
+     <x>360</x>
+     <y>450</y>
+     <width>151</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 14pt &quot;Rockwell&quot;;
+color: rgb(255, 255, 255);</string>
+   </property>
+   <property name="text">
+    <string>Register</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_8">
+   <property name="geometry">
+    <rect>
+     <x>200</x>
+     <y>570</y>
+     <width>361</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(255, 246, 230);
+font: 15pt &quot;Rockwell&quot;;</string>
+   </property>
+   <property name="text">
+    <string>Already have an account? Sign in here:</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="logButton">
+   <property name="geometry">
+    <rect>
+     <x>570</x>
+     <y>570</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 12pt &quot;Rockwell&quot;;
+color: rgb(255, 255, 255);</string>
+   </property>
+   <property name="text">
+    <string>Log in</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="home">
+   <property name="geometry">
+    <rect>
+     <x>360</x>
+     <y>620</y>
+     <width>151</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 14pt &quot;Rockwell&quot;;
+color: rgb(255, 255, 255);</string>
+   </property>
+   <property name="text">
+    <string>Home</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
