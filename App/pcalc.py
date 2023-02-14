@@ -1,4 +1,4 @@
-import sys
+import sys, re
 from PyQt6 import QtWidgets, uic
 from PyQt6.QtWidgets import QDialog, QApplication, QMessageBox  
 
@@ -6,9 +6,30 @@ from PyQt6.QtWidgets import QDialog, QApplication, QMessageBox
 FIXED_WIDTH = 860
 FIXED_HEIGHT = 720
 
+def passValidation(password):
+        valid = True
+        specialS = ['$', '#', '@', '%']
 
+        if len(password) > 6 or len(password) > 20 or not any(char.isdigit() for char in password) or not any(char.isupper() for char in password) or not any(char.islower() for char in password) or not any(char in specialS for char in password):
+            err = QMessageBox(text="Your password is not valid. A valid password must be between 6 and 20 characters long and have one numeral, upper case letter, lower case letter and one symbol (#$%@).")
+            err.setIcon(QMessageBox.Icon.Warning)
+            err.setStandardButtons(QMessageBox.StandardButton.Ok)
+            err.setDefaultButton(QMessageBox.StandardButton.Ok)
+            err.exec()
+            return False;
 
+def emailValidation(email):
+    regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b'
 
+    if re.fullmatch(regex,email):
+        return True;
+    else:
+        err = QMessageBox(text="Your email is not valid, please enter a valid email adress.")
+        err.setIcon(QMessageBox.Icon.Warning)
+        err.setStandardButtons(QMessageBox.StandardButton.Ok)
+        err.setDefaultButton(QMessageBox.StandardButton.Ok)
+        err.exec()
+        return False;
 
 class HomeWindow(QDialog):
     def __init__(self):
@@ -102,9 +123,11 @@ class RegisterWindow(QDialog):
         try:
             name = self.name.text()
             surname = self.surname.text()
-            email = self.email.text()
+            if emailValidation(self.email.text()):
+                email = self.email.text()
             if self.password.text() == self.cPassword.text():
-                password = self.password.text()
+                if passValidation(self.password.text()):
+                    password = passValidation(self.password.text())
                 print("Registered Successfully! Welcome, " + name + " " + surname)
             else:
                 msg = QMessageBox(text="Passwords do not match!", parent=self)
@@ -177,19 +200,20 @@ class HandWindow(QDialog):
     def calculateHand(self):
         try:
             salary = int(self.salary.text())
-            taxDeduc = salary / 9.52
             dep = int(self.depBox.currentText())
+            taxBook = self.taxBox.currentText()
+
+            if str(taxBook) == "Yes":
+                salary = salary - (salary * 0.105)
+                salary = salary - (salary * 0.2)
+                self.Salary.setText(str(round(salary, 2)))
+            elif str(taxBook) == "No":
+                vsaoi = salary * 0.105
+                salary = salary - vsaoi - (salary * 0.23 - vsaoi * 0.2)
+                self.Salary.setText(str(round(salary, 2)))
 
 
-            if(str(self.taxBox.currentText())) == "No":
-                taxRelief = int(self.taxRelief.text()) * 0.2
-                civilTax = salary / 4.785 - taxRelief
 
-                onHand = salary - taxDeduc - civilTax - taxRelief
-                self.Salary.setText(str(round(onHand, 2)))
-            else:
-                onHand = salary - taxDeduc + 250 * dep
-                self.Salary.setText(str(round(onHand, 2)))
         except:
                 err = QMessageBox(text="A fatal error occured, please retry...", parent=self)
                 err.setIcon(QMessageBox.Icon.Critical)
