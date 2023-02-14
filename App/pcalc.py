@@ -1,22 +1,60 @@
-import sys, re
+import sys, re, mysql.connector
 from PyQt6 import QtWidgets, uic
 from PyQt6.QtWidgets import QDialog, QApplication, QMessageBox  
 
+database = mysql.connector.connect(
+    host = "localhost",
+    user = "root",
+    password = ""
+)
+
+cursor = database.cursor()
 
 FIXED_WIDTH = 860
 FIXED_HEIGHT = 720
 
 def passValidation(password):
-        valid = True
         specialS = ['$', '#', '@', '%']
 
-        if len(password) > 6 or len(password) > 20 or not any(char.isdigit() for char in password) or not any(char.isupper() for char in password) or not any(char.islower() for char in password) or not any(char in specialS for char in password):
-            err = QMessageBox(text="Your password is not valid. A valid password must be between 6 and 20 characters long and have one numeral, upper case letter, lower case letter and one symbol (#$%@).")
+        if len(password) < 6 or len(password) > 20:
+            err = QMessageBox(text="A password should be between 6 and 20 characters in length.")
             err.setIcon(QMessageBox.Icon.Warning)
             err.setStandardButtons(QMessageBox.StandardButton.Ok)
             err.setDefaultButton(QMessageBox.StandardButton.Ok)
             err.exec()
             return False;
+        if not any(char.isdigit() for char in password):
+            err = QMessageBox(text="A password should have atleast one numerical symbol in it.")
+            err.setIcon(QMessageBox.Icon.Warning)
+            err.setStandardButtons(QMessageBox.StandardButton.Ok)
+            err.setDefaultButton(QMessageBox.StandardButton.Ok)
+            err.exec()
+            return False;
+        if not any(char.isupper() for char in password):
+            err = QMessageBox(text="A password should have atleast one upper case letter in it.")
+            err.setIcon(QMessageBox.Icon.Warning)
+            err.setStandardButtons(QMessageBox.StandardButton.Ok)
+            err.setDefaultButton(QMessageBox.StandardButton.Ok)
+            err.exec()
+            return False;
+        if not any(char.islower() for char in password):
+            err = QMessageBox(text="A password should have atleast one lower case letter in it.")
+            err.setIcon(QMessageBox.Icon.Warning)
+            err.setStandardButtons(QMessageBox.StandardButton.Ok)
+            err.setDefaultButton(QMessageBox.StandardButton.Ok)
+            err.exec()
+            return False;
+        if not any(char in specialS for char in password):
+            err = QMessageBox(text="A password should have atleast one of these symbols: @#$%")
+            err.setIcon(QMessageBox.Icon.Warning)
+            err.setStandardButtons(QMessageBox.StandardButton.Ok)
+            err.setDefaultButton(QMessageBox.StandardButton.Ok)
+            err.exec()
+            return False;
+            
+    
+        else:
+            return True;
 
 def emailValidation(email):
     regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,7}\b'
@@ -128,7 +166,16 @@ class RegisterWindow(QDialog):
             if self.password.text() == self.cPassword.text():
                 if passValidation(self.password.text()):
                     password = passValidation(self.password.text())
-                print("Registered Successfully! Welcome, " + name + " " + surname)
+
+                insert = ("INSERT INTO userdata VALUES (%s, %s, %s, %s)")
+                data = (name, surname, email, password)
+                try:
+                    cursor.execute(insert,data)
+                    database.commit()
+                    print("Registered Successfully! Welcome, " + name + " " + surname)
+                except:
+                    database.rollback()
+                    print("Data failed to insert..")
             else:
                 msg = QMessageBox(text="Passwords do not match!", parent=self)
                 msg.setIcon(QMessageBox.Icon.Information)
@@ -212,8 +259,6 @@ class HandWindow(QDialog):
                 salary = salary - vsaoi - (salary * 0.23 - vsaoi * 0.2)
                 self.Salary.setText(str(round(salary, 2)))
 
-
-
         except:
                 err = QMessageBox(text="A fatal error occured, please retry...", parent=self)
                 err.setIcon(QMessageBox.Icon.Critical)
@@ -233,6 +278,8 @@ widget.addWidget(homewindow)
 
 widget.setFixedSize(FIXED_WIDTH, FIXED_HEIGHT)
 widget.show()
+
+print(database)
 
 try:
     sys.exit(app.exec())
