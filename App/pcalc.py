@@ -1,21 +1,15 @@
-import sys, re, mysql.connector
+import sys, re, mysql.connector 
 from PyQt6 import QtWidgets, uic
 from PyQt6.QtWidgets import QDialog, QApplication, QMessageBox  
 
-database = mysql.connector.connect(
-    host = "localhost",
-    user = "root",
-    password = ""
-)
-
-cursor = database.cursor()
 
 FIXED_WIDTH = 860
 FIXED_HEIGHT = 720
 
 def passValidation(password):
         specialS = ['$', '#', '@', '%']
-
+        # A good password must have more than 6 characters, but less than 20 + one number in it + one upper case character in it +
+        # one lower case character in it and one symbol (@#$%).
         if len(password) < 6 or len(password) > 20:
             err = QMessageBox(text="A password should be between 6 and 20 characters in length.")
             err.setIcon(QMessageBox.Icon.Warning)
@@ -107,17 +101,28 @@ class LoginWindow(QDialog):
     def loginUser(self):
         try:
             email = self.email.text()
-            if self.password.text() == self.cPassword.text():
-                password = self.password.text()
-                print("Login Successful, email:" + email + ", password: " + password)
-                hand = HandWindow()
-                widget.addWidget(hand)
-                widget.setCurrentIndex(widget.currentIndex()+1)
-            else:
-                msg = QMessageBox(text="Incorrect password!", parent=self)
-                msg.setIcon(QMessageBox.Icon.Information)
-                msg.setStandardButtons(QMessageBox.StandardButton.Ok)
-                msg.exec()
+            password = self.password.text()
+            database = mysql.connector.connect(host = "localhost", user = "username", password = "Password1", database = "algascalc")
+            cursor = database.cursor()  
+
+            cursor.execute("SELECT email, password from userdata")
+            fetch = cursor.fetchall()
+            cursor.close()
+            database.close()
+            try:
+                for x in fetch:
+                    if x[0] == email:
+                        if x[1] == password:
+                            hand = HandWindow()
+                            widget.addWidget(hand)
+                            widget.setCurrentIndex(widget.currentIndex()+1)
+                            break
+            except:      
+                err = QMessageBox(text="Login failed, incorrect email or password...", parent=self)
+                err.setIcon(QMessageBox.Icon.Critical)
+                err.setStandardButtons(QMessageBox.StandardButton.Ok)
+                err.setDefaultButton(QMessageBox.StandardButton.Ok)
+                err.exec()
         except:
                 err = QMessageBox(text="A fatal error occured, please retry...", parent=self)
                 err.setIcon(QMessageBox.Icon.Critical)
@@ -164,18 +169,31 @@ class RegisterWindow(QDialog):
             if emailValidation(self.email.text()):
                 email = self.email.text()
             if self.password.text() == self.cPassword.text():
-                if passValidation(self.password.text()):
-                    password = passValidation(self.password.text())
-
-                insert = ("INSERT INTO userdata VALUES (%s, %s, %s, %s)")
-                data = (name, surname, email, password)
+                
                 try:
-                    cursor.execute(insert,data)
+                # Example register pass : Passwords1@
+                    database = mysql.connector.connect(host = "localhost", user = "username", password = "Password1", database = "algascalc")
+                    cursor = database.cursor()  
+                    if passValidation(self.password.text()):
+                        password = self.password.text()
+
+
+                    insert = ("INSERT INTO userdata (name, surname, email, password) VALUES (%s, %s, %s, %s)")
+                    data = (name, surname, email, password)
+                    cursor.execute(insert, data)
                     database.commit()
-                    print("Registered Successfully! Welcome, " + name + " " + surname)
+                    cursor.close()
+                    database.close()
+
+                    menu = HomeWindow()
+                    widget.addWidget(menu)
+                    widget.setCurrentIndex(widget.currentIndex()+1)
                 except:
-                    database.rollback()
-                    print("Data failed to insert..")
+                    msg = QMessageBox(text="Registration unsuccesful, check if everything is input correctly...", parent=self)
+                    msg.setIcon(QMessageBox.Icon.Information)
+                    msg.setStandardButtons(QMessageBox.StandardButton.Ok)
+                    msg.exec()
+                
             else:
                 msg = QMessageBox(text="Passwords do not match!", parent=self)
                 msg.setIcon(QMessageBox.Icon.Information)
@@ -187,57 +205,16 @@ class RegisterWindow(QDialog):
                 err.setStandardButtons(QMessageBox.StandardButton.Ok)
                 err.setDefaultButton(QMessageBox.StandardButton.Ok)
                 err.exec()
-        
-
-class PaperWindow(QDialog):
-    def __init__(self):
-        super(PaperWindow, self).__init__()
-        uic.loadUi("paper.ui",self)
-        self.calculate.clicked.connect(self.calculatePaper)
-        self.hand.clicked.connect(self.goToHand)
-        self.home.clicked.connect(self.goToMenu)
-        self.salarySlider.valueChanged.connect(self.display)
-        self.setWindowTitle("Calculate: On Paper")
-
-    def goToHand(self):
-        hand = HandWindow()
-        widget.addWidget(hand)
-        widget.setCurrentIndex(widget.currentIndex()+1)
-
-    def goToMenu(self):
-        menu = HomeWindow()
-        widget.addWidget(menu)
-        widget.setCurrentIndex(widget.currentIndex()+1)
-
-    def calculatePaper(self):
-        try:
-            name = self.name.text()
-        except:
-                err = QMessageBox(text="A fatal error occured, please retry...", parent=self)
-                err.setIcon(QMessageBox.Icon.Critical)
-                err.setStandardButtons(QMessageBox.StandardButton.Ok)
-                err.setDefaultButton(QMessageBox.StandardButton.Ok)
-                err.exec()
-        
-    def display(self):
-        salary = self.salary.text()
-        self.salary.setText(str(self.sender().value()))
+    
 
 class HandWindow(QDialog):
     def __init__(self):
         super(HandWindow, self).__init__()
         uic.loadUi("hand.ui",self)
         self.calculate.clicked.connect(self.calculateHand)
-        self.paper.clicked.connect(self.goToPaper)
         self.home.clicked.connect(self.goToMenu)
         self.salarySlider.valueChanged.connect(self.display)
         self.setWindowTitle("Calculate: On Hand")
-
-
-    def goToPaper(self):
-        paper = PaperWindow()
-        widget.addWidget(paper)
-        widget.setCurrentIndex(widget.currentIndex()+1)
 
     def goToMenu(self):
         menu = HomeWindow()
@@ -279,7 +256,7 @@ widget.addWidget(homewindow)
 widget.setFixedSize(FIXED_WIDTH, FIXED_HEIGHT)
 widget.show()
 
-print(database)
+#print(database)
 
 try:
     sys.exit(app.exec())

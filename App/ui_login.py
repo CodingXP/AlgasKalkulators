@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file 'c:\Users\visti\Desktop\Project\AlgasKalkulators\App\login.ui'
+# Form implementation generated from reading ui file 'c:\Users\visti\Desktop\Proejct\AlgasKalkulators\App\login.ui'
 #
 # Created by: PyQt6 UI code generator 6.4.0
 #
@@ -21,6 +21,13 @@ class Ui_Dialog(object):
         self.label.setObjectName("label")
         self.email = QtWidgets.QLineEdit(Dialog)
         self.email.setGeometry(QtCore.QRect(250, 210, 361, 31))
+        font = QtGui.QFont()
+        font.setFamily("Rockwell")
+        font.setPointSize(8)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(50)
+        self.email.setFont(font)
         self.email.setStyleSheet("color: rgb(255, 255, 255);\n"
 "font: 8pt \"Rockwell\";")
         self.email.setObjectName("email")
@@ -40,34 +47,23 @@ class Ui_Dialog(object):
         self.label_5.setStyleSheet("font: 12pt \"MS Shell Dlg 2\";\n"
 "color: rgb(255, 255, 255);")
         self.label_5.setObjectName("label_5")
-        self.label_6 = QtWidgets.QLabel(Dialog)
-        self.label_6.setGeometry(QtCore.QRect(370, 350, 131, 21))
-        self.label_6.setStyleSheet("font: 12pt \"MS Shell Dlg 2\";\n"
-"color: rgb(255, 255, 255);")
-        self.label_6.setObjectName("label_6")
-        self.cPassword = QtWidgets.QLineEdit(Dialog)
-        self.cPassword.setGeometry(QtCore.QRect(340, 390, 181, 31))
-        self.cPassword.setStyleSheet("color: rgb(255, 255, 255);\n"
-"font: 8pt \"Rockwell\";")
-        self.cPassword.setEchoMode(QtWidgets.QLineEdit.EchoMode.Password)
-        self.cPassword.setObjectName("cPassword")
         self.label_7 = QtWidgets.QLabel(Dialog)
         self.label_7.setGeometry(QtCore.QRect(340, 690, 201, 20))
         self.label_7.setStyleSheet("font: 10pt \"MS Shell Dlg 2\";\n"
 "color: rgb(255, 255, 255);")
         self.label_7.setObjectName("label_7")
         self.logButton = QtWidgets.QPushButton(Dialog)
-        self.logButton.setGeometry(QtCore.QRect(360, 440, 151, 41))
+        self.logButton.setGeometry(QtCore.QRect(360, 370, 151, 41))
         self.logButton.setStyleSheet("font: 14pt \"Rockwell\";\n"
 "color: rgb(255, 255, 255);")
         self.logButton.setObjectName("logButton")
         self.label_2 = QtWidgets.QLabel(Dialog)
-        self.label_2.setGeometry(QtCore.QRect(200, 530, 391, 21))
+        self.label_2.setGeometry(QtCore.QRect(200, 530, 431, 21))
         self.label_2.setStyleSheet("color: rgb(255, 246, 230);\n"
 "font: 15pt \"Rockwell\";")
         self.label_2.setObjectName("label_2")
         self.regButton = QtWidgets.QPushButton(Dialog)
-        self.regButton.setGeometry(QtCore.QRect(600, 530, 75, 23))
+        self.regButton.setGeometry(QtCore.QRect(630, 530, 91, 21))
         self.regButton.setStyleSheet("font: 12pt \"Rockwell\";\n"
 "color: rgb(255, 255, 255);")
         self.regButton.setObjectName("regButton")
@@ -86,7 +82,6 @@ class Ui_Dialog(object):
         self.label.setText(_translate("Dialog", "Login"))
         self.label_4.setText(_translate("Dialog", "E-mail"))
         self.label_5.setText(_translate("Dialog", "Password"))
-        self.label_6.setText(_translate("Dialog", "Confirm Password"))
         self.label_7.setText(_translate("Dialog", "Made by DP3-2 PIKC RVT || 2023"))
         self.logButton.setText(_translate("Dialog", "Login"))
         self.label_2.setText(_translate("Dialog", "If you do not have an account, sign up here:"))

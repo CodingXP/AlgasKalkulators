@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file 'c:\Users\visti\Desktop\Project\AlgasKalkulators\App\hand.ui'
+# Form implementation generated from reading ui file 'c:\Users\visti\Desktop\Proejct\AlgasKalkulators\App\hand.ui'
 #
 # Created by: PyQt6 UI code generator 6.4.0
 #
@@ -34,7 +34,7 @@ class Ui_Dialog(object):
 "color: rgb(255, 255, 255);")
         self.label_10.setObjectName("label_10")
         self.layoutWidget = QtWidgets.QWidget(Dialog)
-        self.layoutWidget.setGeometry(QtCore.QRect(200, 40, 495, 528))
+        self.layoutWidget.setGeometry(QtCore.QRect(200, 40, 495, 539))
         self.layoutWidget.setObjectName("layoutWidget")
         self.verticalLayout_3 = QtWidgets.QVBoxLayout(self.layoutWidget)
         self.verticalLayout_3.setContentsMargins(0, 0, 0, 0)
@@ -125,11 +125,6 @@ class Ui_Dialog(object):
 "font: 12pt \"Rockwell\";")
         self.calculate.setObjectName("calculate")
         self.verticalLayout_2.addWidget(self.calculate)
-        self.paper = QtWidgets.QPushButton(self.layoutWidget)
-        self.paper.setStyleSheet("color: rgb(255, 255, 255);\n"
-"font: 12pt \"Rockwell\";")
-        self.paper.setObjectName("paper")
-        self.verticalLayout_2.addWidget(self.paper)
         self.verticalLayout_3.addLayout(self.verticalLayout_2)
         self.home = QtWidgets.QPushButton(self.layoutWidget)
         self.home.setStyleSheet("color: rgb(255, 255, 255);\n"
@@ -166,5 +161,4 @@ class Ui_Dialog(object):
         self.label_6.setText(_translate("Dialog", "Additional tax reliefs:"))
         self.taxRelief.setText(_translate("Dialog", "0"))
         self.calculate.setText(_translate("Dialog", "Calculate"))
-        self.paper.setText(_translate("Dialog", "Go to Paper version"))
         self.home.setText(_translate("Dialog", "Back to Home"))
