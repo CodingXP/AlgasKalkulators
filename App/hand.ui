@@ -313,6 +313,23 @@ font: 12pt &quot;Rockwell&quot;;</string>
     </item>
    </layout>
   </widget>
+  <widget class="QPushButton" name="pdfBtn">
+   <property name="geometry">
+    <rect>
+     <x>200</x>
+     <y>620</y>
+     <width>493</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(255, 255, 255);
+font: 12pt &quot;Rockwell&quot;;</string>
+   </property>
+   <property name="text">
+    <string>Export as PDF</string>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>

@@ -131,6 +131,11 @@ class Ui_Dialog(object):
 "font: 12pt \"Rockwell\";")
         self.home.setObjectName("home")
         self.verticalLayout_3.addWidget(self.home)
+        self.pdfBtn = QtWidgets.QPushButton(Dialog)
+        self.pdfBtn.setGeometry(QtCore.QRect(200, 620, 493, 31))
+        self.pdfBtn.setStyleSheet("color: rgb(255, 255, 255);\n"
+"font: 12pt \"Rockwell\";")
+        self.pdfBtn.setObjectName("pdfBtn")
 
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
@@ -162,3 +167,4 @@ class Ui_Dialog(object):
         self.taxRelief.setText(_translate("Dialog", "0"))
         self.calculate.setText(_translate("Dialog", "Calculate"))
         self.home.setText(_translate("Dialog", "Back to Home"))
+        self.pdfBtn.setText(_translate("Dialog", "Export as PDF"))

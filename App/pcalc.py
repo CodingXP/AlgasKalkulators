@@ -1,6 +1,7 @@
 import sys, re, mysql.connector 
 from PyQt6 import QtWidgets, uic
-from PyQt6.QtWidgets import QDialog, QApplication, QMessageBox  
+from PyQt6.QtWidgets import QDialog, QApplication, QMessageBox, QLineEdit
+from reportlab.pdfgen.canvas import Canvas
 
 
 FIXED_WIDTH = 860
@@ -96,8 +97,14 @@ class LoginWindow(QDialog):
         self.logButton.clicked.connect(self.loginUser)
         self.regButton.clicked.connect(self.goToReg)
         self.home.clicked.connect(self.goToMenu)
+        self.passBox.toggled.connect(self.showPassword)
         self.setWindowTitle("Login")
 
+    def showPassword(self):
+        if self.password.echoMode() == QLineEdit.EchoMode.Normal:
+            self.password.setEchoMode(QLineEdit.EchoMode.Password)
+        else:
+            self.password.setEchoMode(QLineEdit.EchoMode.Normal)
     def loginUser(self):
         try:
             email = self.email.text()
@@ -109,15 +116,13 @@ class LoginWindow(QDialog):
             fetch = cursor.fetchall()
             cursor.close()
             database.close()
-            try:
-                for x in fetch:
-                    if x[0] == email:
-                        if x[1] == password:
-                            hand = HandWindow()
-                            widget.addWidget(hand)
-                            widget.setCurrentIndex(widget.currentIndex()+1)
-                            break
-            except:      
+            for x in fetch:
+                if x[0] == email:
+                    if x[1] == password:
+                        hand = HandWindow()
+                        widget.addWidget(hand)
+                        widget.setCurrentIndex(widget.currentIndex()+1)
+                        break
                 err = QMessageBox(text="Login failed, incorrect email or password...", parent=self)
                 err.setIcon(QMessageBox.Icon.Critical)
                 err.setStandardButtons(QMessageBox.StandardButton.Ok)
@@ -150,7 +155,18 @@ class RegisterWindow(QDialog):
         self.regButton.clicked.connect(self.reigsterUser)
         self.logButton.clicked.connect(self.goToLog)
         self.home.clicked.connect(self.goToMenu)
+        self.passBox.toggled.connect(self.showPassword)
         self.setWindowTitle("Register")
+
+    def showPassword(self):
+        if self.password.echoMode() == QLineEdit.EchoMode.Normal:
+            if self.cPassword.echoMode() == QLineEdit.EchoMode.Normal:
+                self.password.setEchoMode(QLineEdit.EchoMode.Password)
+                self.cPassword.setEchoMode(QLineEdit.EchoMode.Password)
+        elif self.password.echoMode() == QLineEdit.EchoMode.Password:
+            if self.cPassword.EchoMode() == QLineEdit.EchoMode.Password:
+                self.password.setEchoMode(QLineEdit.EchoMode.Normal)
+                self.cPassword.setEchoMode(QLineEdit.EchoMode.Normal)
 
     def goToLog(self):
         login = LoginWindow()
@@ -213,6 +229,7 @@ class HandWindow(QDialog):
         uic.loadUi("hand.ui",self)
         self.calculate.clicked.connect(self.calculateHand)
         self.home.clicked.connect(self.goToMenu)
+        self.pdfBtn.clicked.connect(self.pdfCreate)
         self.salarySlider.valueChanged.connect(self.display)
         self.setWindowTitle("Calculate: On Hand")
 
@@ -234,6 +251,7 @@ class HandWindow(QDialog):
             elif str(taxBook) == "No":
                 vsaoi = salary * 0.105
                 salary = salary - vsaoi - (salary * 0.23 - vsaoi * 0.2)
+                return salary
                 self.Salary.setText(str(round(salary, 2)))
 
         except:
@@ -242,10 +260,21 @@ class HandWindow(QDialog):
                 err.setStandardButtons(QMessageBox.StandardButton.Ok)
                 err.setDefaultButton(QMessageBox.StandardButton.Ok)
                 err.exec()
-
+    
     def display(self):
         salary = self.salary.text()
         self.salary.setText(str(self.sender().value()))
+
+    def pdfCreate(self):
+        canvas = Canvas("Paycheck.pdf")
+        salary = self.Salary.text()
+        taxBook = self.taxBox.currentText()
+        dep = self.depBox.currentText()
+
+        canvas.setFont("Times-Roman", 25)
+        canvas.drawString(0, 0, salary)
+        canvas.save()
+        
 
 
 app = QApplication(sys.argv)

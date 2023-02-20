@@ -151,6 +151,11 @@ class Ui_Dialog(object):
         self.home.setStyleSheet("font: 14pt \"Rockwell\";\n"
 "color: rgb(255, 255, 255);")
         self.home.setObjectName("home")
+        self.passBox = QtWidgets.QCheckBox(Dialog)
+        self.passBox.setGeometry(QtCore.QRect(550, 360, 131, 21))
+        self.passBox.setStyleSheet("color: rgb(255, 255, 255);\n"
+"font: 9pt \"Rockwell\";")
+        self.passBox.setObjectName("passBox")
 
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
@@ -169,3 +174,4 @@ class Ui_Dialog(object):
         self.label_8.setText(_translate("Dialog", "Already have an account? Sign in here:"))
         self.logButton.setText(_translate("Dialog", "Log in"))
         self.home.setText(_translate("Dialog", "Home"))
+        self.passBox.setText(_translate("Dialog", "Show password"))

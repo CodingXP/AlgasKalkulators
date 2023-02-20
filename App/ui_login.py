@@ -38,7 +38,7 @@ class Ui_Dialog(object):
         self.label_4.setObjectName("label_4")
         self.password = QtWidgets.QLineEdit(Dialog)
         self.password.setGeometry(QtCore.QRect(340, 300, 181, 31))
-        self.password.setStyleSheet("font: 8pt \"Rockwell\";\n"
+        self.password.setStyleSheet("font: 9pt \"Rockwell\";\n"
 "color: rgb(255, 255, 255);")
         self.password.setEchoMode(QtWidgets.QLineEdit.EchoMode.Password)
         self.password.setObjectName("password")
@@ -72,6 +72,11 @@ class Ui_Dialog(object):
         self.home.setStyleSheet("font: 14pt \"Rockwell\";\n"
 "color: rgb(255, 255, 255);")
         self.home.setObjectName("home")
+        self.passBox = QtWidgets.QCheckBox(Dialog)
+        self.passBox.setGeometry(QtCore.QRect(540, 300, 131, 31))
+        self.passBox.setStyleSheet("color: rgb(255, 255, 255);\n"
+"font: 9pt \"Rockwell\";")
+        self.passBox.setObjectName("passBox")
 
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
@@ -87,3 +92,4 @@ class Ui_Dialog(object):
         self.label_2.setText(_translate("Dialog", "If you do not have an account, sign up here:"))
         self.regButton.setText(_translate("Dialog", "Register"))
         self.home.setText(_translate("Dialog", "Home"))
+        self.passBox.setText(_translate("Dialog", "Show password"))
