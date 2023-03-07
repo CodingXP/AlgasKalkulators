@@ -1,4 +1,4 @@
-# Form implementation generated from reading ui file 'c:\Users\visti\Desktop\Proejct\AlgasKalkulators\App\login.ui'
+# Form implementation generated from reading ui file 'c:\Users\visti\Desktop\Github Projects\AlgasKalkulators\App\login.ui'
 #
 # Created by: PyQt6 UI code generator 6.4.0
 #
@@ -72,11 +72,6 @@ class Ui_Dialog(object):
         self.home.setStyleSheet("font: 14pt \"Rockwell\";\n"
 "color: rgb(255, 255, 255);")
         self.home.setObjectName("home")
-        self.passBox = QtWidgets.QCheckBox(Dialog)
-        self.passBox.setGeometry(QtCore.QRect(540, 300, 131, 31))
-        self.passBox.setStyleSheet("color: rgb(255, 255, 255);\n"
-"font: 9pt \"Rockwell\";")
-        self.passBox.setObjectName("passBox")
 
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
@@ -92,4 +87,3 @@ class Ui_Dialog(object):
         self.label_2.setText(_translate("Dialog", "If you do not have an account, sign up here:"))
         self.regButton.setText(_translate("Dialog", "Register"))
         self.home.setText(_translate("Dialog", "Home"))
-        self.passBox.setText(_translate("Dialog", "Show password"))

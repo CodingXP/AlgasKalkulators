@@ -354,23 +354,6 @@ color: rgb(255, 255, 255);</string>
     <string>Home</string>
    </property>
   </widget>
-  <widget class="QCheckBox" name="passBox">
-   <property name="geometry">
-    <rect>
-     <x>550</x>
-     <y>360</y>
-     <width>131</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">color: rgb(255, 255, 255);
-font: 9pt &quot;Rockwell&quot;;</string>
-   </property>
-   <property name="text">
-    <string>Show password</string>
-   </property>
-  </widget>
  </widget>
  <resources/>
  <connections/>

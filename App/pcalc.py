@@ -2,6 +2,10 @@ import sys, re, mysql.connector
 from PyQt6 import QtWidgets, uic
 from PyQt6.QtWidgets import QDialog, QApplication, QMessageBox, QLineEdit
 from reportlab.pdfgen.canvas import Canvas
+from reportlab.lib.units import cm
+from datetime import date
+global today
+today = date.today()
 
 
 FIXED_WIDTH = 860
@@ -97,14 +101,8 @@ class LoginWindow(QDialog):
         self.logButton.clicked.connect(self.loginUser)
         self.regButton.clicked.connect(self.goToReg)
         self.home.clicked.connect(self.goToMenu)
-        self.passBox.toggled.connect(self.showPassword)
         self.setWindowTitle("Login")
 
-    def showPassword(self):
-        if self.password.echoMode() == QLineEdit.EchoMode.Normal:
-            self.password.setEchoMode(QLineEdit.EchoMode.Password)
-        else:
-            self.password.setEchoMode(QLineEdit.EchoMode.Normal)
     def loginUser(self):
         try:
             email = self.email.text()
@@ -155,18 +153,7 @@ class RegisterWindow(QDialog):
         self.regButton.clicked.connect(self.reigsterUser)
         self.logButton.clicked.connect(self.goToLog)
         self.home.clicked.connect(self.goToMenu)
-        self.passBox.toggled.connect(self.showPassword)
         self.setWindowTitle("Register")
-
-    def showPassword(self):
-        if self.password.echoMode() == QLineEdit.EchoMode.Normal:
-            if self.cPassword.echoMode() == QLineEdit.EchoMode.Normal:
-                self.password.setEchoMode(QLineEdit.EchoMode.Password)
-                self.cPassword.setEchoMode(QLineEdit.EchoMode.Password)
-        elif self.password.echoMode() == QLineEdit.EchoMode.Password:
-            if self.cPassword.EchoMode() == QLineEdit.EchoMode.Password:
-                self.password.setEchoMode(QLineEdit.EchoMode.Normal)
-                self.cPassword.setEchoMode(QLineEdit.EchoMode.Normal)
 
     def goToLog(self):
         login = LoginWindow()
@@ -266,15 +253,25 @@ class HandWindow(QDialog):
         self.salary.setText(str(self.sender().value()))
 
     def pdfCreate(self):
-        canvas = Canvas("Paycheck.pdf")
+        presalary = self.salary.text()
         salary = self.Salary.text()
         taxBook = self.taxBox.currentText()
         dep = self.depBox.currentText()
-
-        canvas.setFont("Times-Roman", 25)
-        canvas.drawString(0, 0, salary)
+        canvas = Canvas("Paycheck.pdf")
+        canvas.setLineWidth(.3)
+        canvas.setFont('Times-Roman', 12)
+        canvas.drawString(30, 750, 'Current Date:')
+        canvas.drawString(500, 750, str(today))
+        canvas.drawString(30, 725, 'Salary (Pre-Calculation):')
+        canvas.drawString(500, 725, str(presalary))
+        # I am still missing how to add the dependants in the calculation!!!
+        canvas.drawString(30, 700, 'Dependant Count:')
+        canvas.drawString(500, 700, str(dep))
+        canvas.drawString(30, 675, "Is the taxbook submitted?")
+        canvas.drawString(500, 675, str(taxBook))
+        canvas.drawString(30, 650, "Salary (Post-Calculation):")
+        canvas.drawString(500, 650, str(salary))
         canvas.save()
-        
 
 
 app = QApplication(sys.argv)
